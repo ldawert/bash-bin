@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1
+then
+  echo "Not inside a git repo. Aborting."
+  exit 1
+else
+  branch_name=$(git branch --show-current)
+fi
+
+echo "This will add, commit and push all changes in current directory ${PWD} to branch ${branch_name}"
+read -r -p "Please enter your commit message: " commit_message
+
+git add .
+git commit -m "${commit_message}"
+git push
